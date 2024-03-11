@@ -1,0 +1,66 @@
+Given a positive integer N, return a string representing the smallest positive integer such that the product of its digits is equal to N, or "-1" if no such number exists.
+
+ 
+
+Example 1:
+
+Input: n = 105
+Output: "357"
+Explanation: 3 * 5 * 7 = 105. It can be shown that 357 is the smallest number with a product of digits equal to 105. So the answer would be "105".
+Example 2:
+
+Input: n = 7
+Output: "7"
+Explanation: Since 7 has only one digit, its product of digits would be 7. We will show that 7 is the smallest number with a product of digits equal to 7. Since the product of numbers 1 to 6 is 1 to 6 respectively, so "7" would be the answer.
+Example 3:
+
+Input: n = 44
+Output: "-1"
+Explanation: It can be shown that there is no number such that its product of digits is equal to 44. So the answer would be "-1".
+ 
+
+Constraints:
+
+1 <= n <= 10^18
+
+
+
+
+
+
+
+=========================================
+
+
+
+
+
+
+Answer
+
+Approach : 
+
+Prime factorization of N. Take array 1 to 9, excluding 1. Calculate the powers starting from 9 to 2. ex - 9*x1 times, 8*x2 times ... and so on to 2. Then append the answers in increasing order of powers. TC = O(n).
+
+
+
+
+Code snippet :
+
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+
+	public static int digitProduct(int n) {
+		String ans = "";
+		for (int div=9;div>=2;div--) {
+			while (n%div == 0) {
+				ans = div + ans;
+				n /= div;
+			}
+		}
+		if (n!=1) return -1;
+		else return Integer.parseInt(ans);
+	}
+}
