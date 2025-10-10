@@ -25,8 +25,6 @@ Constraints:
 
 0 <= nums.length <= 105
 -109 <= nums[i] <= 109
- 
-
 
 
 
@@ -43,14 +41,14 @@ Constraints:
 
 Answer
 
-
 Approach : 
 
-Brute : 
+❌ Brute Force Approach
 Sort the array (O(n log n))
 Then iterate and count consecutive numbers (O(n))
+Works, but not optimal since we can do better.
 
-Optimal : HashSet + Smart Traversal
+✅ Optimal Approach — HashSet + Smart Traversal
 Add all elements into a HashSet (O(n)).
 Iterate through each number:
 If num - 1 doesn’t exist, it means num is start of a sequence.
@@ -58,7 +56,7 @@ Then, count forward (num + 1, num + 2, …) until sequence breaks.
 Keep track of the maximum length seen so far.
 👉 Each element is visited at most twice, so overall time is O(n).
 
-Time: O(n) — each number is processed at most twice. Space: O(n) — for the HashSet.
+Time: O(n) — each number is processed at most twice, Space: O(n) — for the HashSet.
 
 
 Code snippet :
@@ -91,6 +89,5 @@ class Solution {
 
 
 
-
-Q1. What if duplicates exist?
-→ HashSet automatically removes duplicates, so no issue.
+Q1 What if input is already sorted?
+Then the brute force sort-based solution is fine — but in interviews, always prefer the O(n) HashSet version.
