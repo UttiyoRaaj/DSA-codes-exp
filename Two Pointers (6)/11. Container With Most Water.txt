@@ -1,0 +1,91 @@
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+Notice that you may not slant the container.
+
+ 
+
+Example 1:
+
+
+Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+Example 2:
+
+Input: height = [1,1]
+Output: 1
+ 
+
+Constraints:
+
+n == height.length
+2 <= n <= 105
+0 <= height[i] <= 104
+ 
+
+
+
+
+
+
+
+
+=========================================
+
+
+
+
+
+
+Answer
+
+
+Approach : 
+
+We want to form a container using two lines.
+The area formed by two lines is:
+area = min(height[left], height[right]) * (right - left)
+
+
+The largest width occurs when pointers are far apart.
+Reducing width is unavoidable as pointers move inward.
+So the only way to increase area is to find a taller minimum height.
+Therefore, always move the pointer at the shortest line, because:
+That line is the bottleneck.
+Keeping it guarantees no future container will be larger.
+This logic proves two-pointers is optimal and why brute force is unnecessary.
+
+
+2 Pointer approach :
+Time: O(n), Space: O(1)
+
+
+Code snippet :
+
+class Solution {
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length-1, maxtrapped = -1, trapped;
+        while (left < right) {
+            trapped = (height[left] < height[right]) ? height[left] * (right-left++) : height[right] * (right---left);
+            maxtrapped = (trapped > maxtrapped) ? trapped : maxtrapped;
+        }
+        return maxtrapped;
+    }
+}
+
+
+
+
+
+Q1. Can you solve it with stacks or DP?
+Possible but unnecessary — two pointers give O(n) with best clarity.
+
+Q2. What if heights were extremely large?
+Integer multiplication stays within 32-bit since:
+max width = 100k (typical constraints)
+max height = 10^4
+→ fits in int.
